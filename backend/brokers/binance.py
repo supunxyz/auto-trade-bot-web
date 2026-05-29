@@ -1,6 +1,6 @@
 """Binance Futures adapter."""
 
-from typing import Optional
+from typing import Optional, List, Dict
 from backend.brokers.base import BrokerAdapter, BrokerError, OrderResult
 
 
@@ -41,7 +41,7 @@ class BinanceAdapter(BrokerAdapter):
         self._connected = False
         self._client = None
     
-    def ping(self) -> dict:
+    def ping(self) -> Dict:
         """Get account info."""
         if not self._client:
             raise BrokerError("Not connected")
@@ -164,7 +164,7 @@ class BinanceAdapter(BrokerAdapter):
         # This would need symbol info to close
         return False
     
-    def get_open_positions(self) -> list[dict]:
+    def get_open_positions(self) -> List[Dict]:
         """Get open positions."""
         if not self._client:
             raise BrokerError("Not connected")

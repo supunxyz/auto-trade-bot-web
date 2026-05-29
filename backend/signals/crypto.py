@@ -1,7 +1,7 @@
 """Crypto signal generation engine."""
 
 import random
-from typing import Optional
+from typing import Optional, List
 from dataclasses import dataclass
 
 
@@ -74,7 +74,7 @@ def generate_crypto_signal(pair: str, account_balance: float = 10000) -> CryptoS
     )
 
 
-def analyze_crypto_pairs(pairs: list[str]) -> list[CryptoSignal]:
+def analyze_crypto_pairs(pairs: List[str]) -> List[CryptoSignal]:
     """Analyze multiple crypto pairs and return signals."""
     signals = []
     for pair in pairs:

@@ -1,7 +1,7 @@
 """MetaTrader 5 broker adapter."""
 
 import threading
-from typing import Optional
+from typing import Optional, List, Dict
 from backend.brokers.base import BrokerAdapter, BrokerError, OrderResult
 
 # Thread lock for MT5 singleton
@@ -62,7 +62,7 @@ class MT5Adapter(BrokerAdapter):
                 self._mt5.shutdown()
                 self._connected = False
     
-    def ping(self) -> dict:
+    def ping(self) -> Dict:
         """Get account info."""
         with _MT5_LOCK:
             info = self._mt5.account_info()
@@ -199,7 +199,7 @@ class MT5Adapter(BrokerAdapter):
         
         return result is not None and (result.retcode == 10009 or result.retcode == 10008)
     
-    def get_open_positions(self) -> list[dict]:
+    def get_open_positions(self) -> List[Dict]:
         """Get open positions from broker."""
         with _MT5_LOCK:
             positions = self._mt5.positions_get()

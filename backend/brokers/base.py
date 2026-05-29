@@ -1,7 +1,7 @@
 """Abstract broker adapter interface."""
 
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, List, Dict
 from dataclasses import dataclass
 
 
@@ -36,7 +36,7 @@ class BrokerAdapter(ABC):
         pass
     
     @abstractmethod
-    def ping(self) -> dict:
+    def ping(self) -> Dict:
         """Check connection and return account info."""
         pass
     
@@ -64,6 +64,6 @@ class BrokerAdapter(ABC):
         pass
     
     @abstractmethod
-    def get_open_positions(self) -> list[dict]:
+    def get_open_positions(self) -> List[Dict]:
         """Get list of open positions from broker."""
         pass

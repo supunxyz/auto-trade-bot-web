@@ -1,7 +1,7 @@
 """Forex signal generation engine."""
 
 import random
-from typing import Optional
+from typing import Optional, List
 from dataclasses import dataclass
 
 
@@ -69,7 +69,7 @@ def generate_forex_signal(pair: str, account_balance: float = 10000) -> TradeSig
     )
 
 
-def analyze_pairs(pairs: list[str]) -> list[TradeSignal]:
+def analyze_pairs(pairs: List[str]) -> List[TradeSignal]:
     """Analyze multiple pairs and return signals."""
     signals = []
     for pair in pairs:
