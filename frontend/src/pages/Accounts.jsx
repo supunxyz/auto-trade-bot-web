@@ -13,7 +13,11 @@ function Accounts() {
   const [form, setForm] = useState({
     broker_type: 'mt5',
     name: '',
-    credentials: {},
+    credentials: {
+      login: '',
+      password: '',
+      server: '',
+    },
   })
 
   useEffect(() => {
@@ -35,19 +39,46 @@ function Accounts() {
     e.preventDefault()
     setError('')
 
+    // Prepare data - remove empty strings and ensure proper types
+    const data = {
+      broker_type: form.broker_type,
+      name: form.name.trim(),
+      credentials: {}
+    }
+
+    // Clean credentials based on broker type
+    if (form.broker_type === 'mt5') {
+      data.credentials = {
+        login: parseInt(form.credentials.login) || 0,
+        password: form.credentials.password || '',
+        server: form.credentials.server || ''
+      }
+    } else if (form.broker_type === 'binance') {
+      data.credentials = {
+        api_key: form.credentials.api_key || '',
+        api_secret: form.credentials.api_secret || '',
+        testnet: form.credentials.testnet || false
+      }
+    }
+
     try {
       if (editing) {
-        await accounts.update(editing.id, form)
+        await accounts.update(editing.id, data)
       } else {
-        await accounts.create(form)
+        await accounts.create(data)
       }
       
       setShowAdd(false)
       setEditing(null)
-      setForm({ broker_type: 'mt5', name: '', credentials: {} })
+      setForm({ 
+        broker_type: 'mt5', 
+        name: '', 
+        credentials: { login: '', password: '', server: '' } 
+      })
       loadAccounts()
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to save account')
+      console.error('Account save error:', err)
+      setError(err.response?.data?.detail || err.message || 'Failed to save account')
     }
   }
 
@@ -138,10 +169,19 @@ function Accounts() {
                   <button
                     onClick={() => {
                       setEditing(account)
+                      const creds = account.credentials || {}
                       setForm({
                         broker_type: account.broker_type,
                         name: account.name,
-                        credentials: account.credentials || {},
+                        credentials: account.broker_type === 'mt5' ? {
+                          login: creds.login || '',
+                          password: creds.password || '',
+                          server: creds.server || ''
+                        } : {
+                          api_key: creds.api_key || '',
+                          api_secret: creds.api_secret || '',
+                          testnet: creds.testnet || false
+                        },
                       })
                       setShowAdd(true)
                     }}
@@ -179,7 +219,16 @@ function Accounts() {
                 </label>
                 <select
                   value={form.broker_type}
-                  onChange={(e) => setForm({ ...form, broker_type: e.target.value })}
+                  onChange={(e) => {
+                    const newType = e.target.value
+                    setForm({ 
+                      ...form, 
+                      broker_type: newType,
+                      credentials: newType === 'mt5' 
+                        ? { login: '', password: '', server: '' }
+                        : { api_key: '', api_secret: '', testnet: false }
+                    })
+                  }}
                   className="w-full"
                   required
                 >
@@ -211,10 +260,16 @@ function Accounts() {
                     <input
                       type="number"
                       value={form.credentials.login || ''}
-                      onChange={(e) => setForm({
-                        ...form,
-                        credentials: { ...form.credentials, login: parseInt(e.target.value) }
-                      })}
+                      onChange={(e) => {
+                        const val = e.target.value
+                        setForm({
+                          ...form,
+                          credentials: { 
+                            ...form.credentials, 
+                            login: val ? parseInt(val) : '' 
+                          }
+                        })
+                      }}
                       className="w-full"
                       required
                     />
@@ -306,7 +361,11 @@ function Accounts() {
                   onClick={() => {
                     setShowAdd(false)
                     setEditing(null)
-                    setForm({ broker_type: 'mt5', name: '', credentials: {} })
+                    setForm({ 
+                  broker_type: 'mt5', 
+                  name: '', 
+                  credentials: { login: '', password: '', server: '' } 
+                })
                   }}
                   className="flex-1 btn-secondary"
                 >
