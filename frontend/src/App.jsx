@@ -7,6 +7,8 @@ import Layout from './components/Layout'
 
 // Pages
 import LandingPage from './pages/LandingPage'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsConditions from './pages/TermsConditions'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
@@ -23,6 +25,8 @@ function App() {
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<LandingPage />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsConditions />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

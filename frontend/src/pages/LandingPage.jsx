@@ -52,8 +52,8 @@ const NAV_LINKS = [
   { label: 'Home', href: '#home' },
   { label: 'About Us', href: '#about' },
   { label: 'Pricing', href: '#pricing' },
-  { label: 'Privacy Policy', href: '#privacy' },
-  { label: 'Terms & Conditions', href: '#terms' },
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms & Conditions', href: '/terms' },
 ]
 
 function Navbar({ activeSection }) {
@@ -384,102 +384,6 @@ function Pricing() {
   )
 }
 
-function Privacy() {
-  const sections = [
-    {
-      title: '1. Information We Collect',
-      body: 'We collect information you provide directly, including your name, email address, and broker credentials encrypted at rest. We also collect usage data such as trade history and platform interactions to improve the service.',
-    },
-    {
-      title: '2. How We Use Your Information',
-      body: 'Your information is used solely to provide and improve the Apex AutoTrader service. We do not sell, trade, or otherwise transfer your personal information to outside parties. Broker credentials are used exclusively to execute trades on your behalf.',
-    },
-    {
-      title: '3. Data Security',
-      body: 'We implement industry-standard security measures including AES-256 encryption for stored credentials, TLS for data in transit, and regular security audits. However, no method of transmission over the Internet is 100% secure.',
-    },
-    {
-      title: '4. Third-Party Services',
-      body: 'Our platform integrates with MetaTrader 5 and Binance. Your use of these platforms is governed by their respective privacy policies. We are not responsible for the privacy practices of these third parties.',
-    },
-    {
-      title: '5. Your Rights',
-      body: 'You have the right to access, correct, or delete your personal data at any time. To exercise these rights, contact us at privacy@apexautotrader.com. We will respond within 30 days.',
-    },
-    {
-      title: '6. Changes to This Policy',
-      body: 'We may update this Privacy Policy periodically. We will notify you of significant changes via email or a prominent notice on our platform. Last updated: January 2025.',
-    },
-  ]
-
-  return (
-    <section id="privacy" className="py-24 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <span className="font-semibold text-sm uppercase tracking-widest" style={{ color: '#518DC4' }}>Legal</span>
-        <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-8">Privacy Policy</h2>
-        <div className="space-y-6 text-gray-600 leading-relaxed">
-          {sections.map((s) => (
-            <div key={s.title}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{s.title}</h3>
-              <p>{s.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Terms() {
-  const sections = [
-    {
-      title: '1. Acceptance of Terms',
-      body: 'By accessing and using Apex AutoTrader, you accept and agree to be bound by these Terms and Conditions. If you do not agree, please do not use our service.',
-    },
-    {
-      title: '2. Trading Risk Disclaimer',
-      body: 'Trading financial instruments involves substantial risk of loss. Apex AutoTrader is a tool to assist trading, not a guarantee of profit. Past performance is not indicative of future results. You are solely responsible for all trading decisions and their financial consequences.',
-    },
-    {
-      title: '3. Use of Service',
-      body: 'You agree to use the service only for lawful purposes and in accordance with applicable financial regulations in your jurisdiction. You are responsible for ensuring that automated trading is legal in your country.',
-    },
-    {
-      title: '4. Account Responsibility',
-      body: 'You are responsible for maintaining the confidentiality of your account credentials. You agree to immediately notify us of any unauthorized use of your account. We are not liable for losses resulting from unauthorized access.',
-    },
-    {
-      title: '5. Limitation of Liability',
-      body: 'Apex AutoTrader shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from your use of the service, including but not limited to trading losses, data loss, or service interruptions.',
-    },
-    {
-      title: '6. Service Availability',
-      body: 'We strive for 99.9% uptime but do not guarantee uninterrupted service. Scheduled maintenance, technical issues, or circumstances beyond our control may cause temporary unavailability.',
-    },
-    {
-      title: '7. Governing Law',
-      body: 'These Terms shall be governed by applicable law. Any disputes arising from these terms shall be resolved through binding arbitration.',
-    },
-  ]
-
-  return (
-    <section id="terms" className="py-24 bg-gray-50">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <span className="font-semibold text-sm uppercase tracking-widest" style={{ color: '#518DC4' }}>Legal</span>
-        <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-8">Terms &amp; Conditions</h2>
-        <div className="space-y-6 text-gray-600 leading-relaxed">
-          {sections.map((s) => (
-            <div key={s.title}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{s.title}</h3>
-              <p>{s.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
@@ -554,7 +458,7 @@ export default function LandingPage() {
   const [activeSection, setActiveSection] = useState('home')
 
   useEffect(() => {
-    const ids = ['home', 'about', 'pricing', 'privacy', 'terms']
+    const ids = ['home', 'about', 'pricing']
     const observers = ids.map(id => {
       const el = document.getElementById(id)
       if (!el) return null
@@ -575,8 +479,6 @@ export default function LandingPage() {
       <Hero />
       <About />
       <Pricing />
-      <Privacy />
-      <Terms />
       <Footer />
     </div>
   )
