@@ -6,7 +6,22 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Poppins', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+      },
       colors: {
+        brand: {
+          50:  '#eef5fc',
+          100: '#d5e8f7',
+          200: '#acd1ef',
+          300: '#82bae7',
+          400: '#518DC4',
+          500: '#518DC4',
+          600: '#3d76ad',
+          700: '#2d5e96',
+          800: '#1e467e',
+          900: '#0f2f67',
+        },
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',

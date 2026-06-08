@@ -27,7 +27,7 @@ function Register() {
 
     try {
       await register(email, password, name)
-      navigate('/')
+      navigate('/dashboard')
     } catch (err) {
       setError(err.response?.data?.detail || 'Registration failed')
     } finally {
@@ -41,7 +41,7 @@ function Register() {
 
     try {
       await googleLogin(credentialResponse.credential)
-      navigate('/')
+      navigate('/dashboard')
     } catch (err) {
       setError(err.response?.data?.detail || 'Google login failed')
     } finally {

@@ -20,7 +20,7 @@ function Layout() {
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
 
   const menuItems = [
-    { path: '/', label: 'Dashboard', icon: LayoutDashboard },
+    { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/accounts', label: 'Accounts', icon: Wallet },
     { path: '/trading', label: 'Trading', icon: PlayCircle },
     { path: '/positions', label: 'Positions', icon: List },
